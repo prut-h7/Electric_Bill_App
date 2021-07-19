@@ -1,0 +1,210 @@
+<CreateAccountWindow>:
+    name: "create"
+
+    mfc: mfc
+    ed: ed
+    ch1: ch1
+    ch2: ch2
+    ch3: ch3
+    ch4: ch4
+
+    FloatLayout:
+        cols:1
+
+
+        FloatLayout:
+            size: root.width, root.height/2
+            Label:
+                text: "Electric Bill Charges"
+                size_hint: 0.85, 0.1
+                pos_hint: {"x":0.1, "top":1}
+
+
+            Label:
+                size_hint: 0.5,0.12
+                pos_hint: {"x":0, "top":0.9}
+                text: "Meter Charge: "
+
+
+            TextInput:
+                text: root.data1()
+                pos_hint: {"x":0.5, "top":0.9}
+                size_hint: 0.4, 0.12
+                id: mfc
+                multiline: False
+
+
+            Label:
+                size_hint: 0.5,0.12
+                pos_hint: {"x":0, "top":0.9-0.13}
+                text: "E D Charges: "
+
+
+            TextInput:
+                text: root.data2()
+                pos_hint: {"x":0.5, "top":0.9-0.13}
+                size_hint: 0.4, 0.12
+                id: ed
+                multiline: False
+
+
+            Label:
+                size_hint: 0.5,0.12
+                pos_hint: {"x":0, "top":0.9-0.13*2}
+                text: "Charge(0-50 Units): "
+
+
+            TextInput:
+                text: root.data3()
+                pos_hint: {"x":0.5, "top":0.9-0.13*2}
+                size_hint: 0.4, 0.12
+                id: ch1
+                multiline: False
+
+
+            Label:
+                size_hint: 0.5,0.12
+                pos_hint: {"x":0, "top":0.9-0.13*3}
+                text: "Charge(50-200 Units): "
+
+
+            TextInput:
+                text: root.data4()
+                pos_hint: {"x":0.5, "top":0.9-0.13*3}
+                size_hint: 0.4, 0.12
+                id: ch2
+                multiline: False
+                number: True
+
+            Label:
+                size_hint: 0.5,0.12
+                pos_hint: {"x":0, "top":0.9-0.13*4}
+                text: "Charge(200-400 Units): "
+
+
+            TextInput:
+                text: root.data5()
+                pos_hint: {"x":0.5, "top":0.9-0.13*4}
+                size_hint: 0.4, 0.12
+                id: ch3
+                multiline: False
+                number: True
+
+
+            Label:
+                size_hint: 0.5,0.12
+                pos_hint: {"x":0, "top":0.9-0.13*5}
+                text: "Charge(Above 400 Units): "
+
+
+            TextInput:
+                text: root.data6()
+                pos_hint: {"x":0.5, "top":0.9-0.13*5}
+                size_hint: 0.4, 0.12
+                id: ch4
+                multiline: False
+                number: True
+
+        Button:
+            pos_hint:{"x":0.5,"y":0.005}
+            size_hint: 0.4, 0.1
+
+            text: "Return Back"
+            on_release:
+                root.login()
+                root.manager.transition.direction = "left"
+
+
+        Button:
+            pos_hint:{"x":0.1,"y":0.005}
+            size_hint: 0.4, 0.1
+            text: "Submit"
+
+            on_release:
+                root.submit()
+                root.manager.transition.direction = "down"
+
+
+
+<LoginWindow>:
+    name: "login"
+
+    this_month: this_month
+    prev_month: prev_month
+
+    FloatLayout:
+
+        Label:
+            text:"This Month Unit: "
+
+            pos_hint: {"x":0.1, "top":0.9}
+            size_hint: 0.35, 0.15
+
+        TextInput:
+            id: this_month
+
+            multiline: False
+            pos_hint: {"x": 0.45 , "top":0.9}
+            size_hint: 0.4, 0.15
+
+        Label:
+            text:"Last Month Unit: "
+
+            pos_hint: {"x":0.1, "top":0.7}
+            size_hint: 0.35, 0.15
+
+        TextInput:
+            id: prev_month
+            text: root.pre_month()
+
+            multiline: False
+            pos_hint: {"x": 0.45, "top":0.7}
+            size_hint: 0.4, 0.15
+
+        Button:
+            pos_hint:{"x":0.2,"y":0.1}
+            size_hint: 0.6, 0.2
+
+            text: "Calculate"
+            on_release:
+                root.manager.transition.direction = "up"
+                root.loginBtn()
+
+        Button:
+            pos_hint:{"x":0.2,"y":0.3}
+            size_hint: 0.6, 0.1
+
+            text: "Change Electric charges ?"
+            on_release:
+                root.manager.transition.direction = "right"
+                root.createBtn()
+
+
+<MainWindow>:
+    bill: bill
+    unit: unit
+
+    FloatLayout:
+        Label:
+            id: bill
+            pos_hint:{"x": 0.1, "top":0.9}
+            size_hint:0.8, 0.2
+
+            text: "Total Bill: "
+
+        Label:
+            id: unit
+            pos_hint:{"x": 0.1, "top":0.7}
+            size_hint:0.8, 0.2
+
+            text: "Total Unit: "
+
+
+        Button:
+            pos_hint:{"x":0.2, "y": 0.1}
+            size_hint:0.6,0.2
+
+            text: "Go Back"
+            on_release:
+                app.root.current = "login"
+                root.manager.transition.direction = "down"
